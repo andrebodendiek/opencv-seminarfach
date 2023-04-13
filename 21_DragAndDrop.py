@@ -23,15 +23,25 @@ while True:
         position = hands[0]['center']
         lmList = hands[0]['lmList']
         cursor = lmList[8]
+
+        length, _ = detector.findDistance(
+          lmList[8][0:2], 
+          lmList[12][0:2])
+        
         if cX - w // 2 < cursor[0] < cX + w // 2 and \
-          cY - h // 2 < cursor[1] < cY + h // 2:
+          cY - h // 2 < cursor[1] < cY + h // 2 and \
+          length < 60:
           cX, cY, _ = cursor
-      
+               
+        print(f"Länge: {length}")
+
       cv2.rectangle(img, 
                     (cX - w // 2, cY - h // 2), 
                     (cX + w // 2, cY + h // 2), 
                     (255, 0, 0), 
                     cv2.FILLED)
+
+      
 
       cv2.imshow("Image", img)
       
